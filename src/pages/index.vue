@@ -19,11 +19,12 @@ export default defineComponent({
   setup() {
     const items = ref([])
     const loaded = computed(() => items.value.length > 0)
+    const accessToken = process.env.CONTENT_API
 
     onMounted(() => {
       const client = window.contentful.createClient({
         space: 'wwsy076arlez',
-        accessToken: 'JCi6UjEfl8JoNUqRZI-IkyfC71CQdJu6ailCLOa4nQE'
+        accessToken
       })
 
       client
