@@ -8,6 +8,7 @@ module.exports = {
       display: 'Ballpoint Signature'
     },
     colors: {
+      transparent: 'transparent',
       grey: '#F1EFEF',
       white: '#ffffff',
       green: {

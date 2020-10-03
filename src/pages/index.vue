@@ -1,12 +1,8 @@
 <template>
   <div class="container mx-auto">
+    {{ currentFilter }}
     <div v-if="loaded" class="masonry">
-      <div v-for="(image, imageId) in items" :key="`image-${imageId}`" class="masonry-item">
-        <img :src="image.file.url" alt="" />
-        <div class="overlay">
-          <p class="text-3xl text-white">{{ image.title }}</p>
-        </div>
-      </div>
+      <ImageBlock :item="item" v-for="(item, imageId) in items" :key="`image-${imageId}`" />
     </div>
     <div class="" v-else>Loading</div>
   </div>
@@ -14,6 +10,7 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref, computed } from 'vue'
+import { currentFilter } from '../store'
 
 export default defineComponent({
   setup() {
@@ -28,29 +25,38 @@ export default defineComponent({
       })
 
       client
-        .getAssets()
+        .getEntries()
         .then((response) => {
-          response.items.map(({ fields }) => fields).forEach((element) => items.value.push(element))
+          response.items
+            .map(({ fields, sys }) => {
+              const { image, ...rest } = fields
 
-          // setTimeout(() => {
-          //   macy({
-          //     container: '#display',
-          //     columns: 3,
-          //     breakAt: {
-          //       940: 2,
-          //       520: 1
-          //     },
-          //     cancelLegacy: true,
-          //     waitForImages: true
-          //   })
-          // }, 200)
+              return {
+                id: sys.id,
+                updatedAt: sys.updatedAt,
+                image: image.fields.file.url,
+                ...rest
+              }
+            })
+            .forEach((element) => items.value.push(element))
+
+          console.log(items)
         })
         .catch((err) => console.error(err))
     })
 
+    const filteredItems = computed(() =>
+      items.value.filter((item) => {
+        if (currentFilter.value === 'All') return true
+
+        return item.type === currentFilter.value
+      })
+    )
+
     return {
-      items,
-      loaded
+      items: filteredItems,
+      loaded,
+      currentFilter
     }
   }
 })
@@ -73,7 +79,7 @@ export default defineComponent({
 }
 
 .overlay {
-  @apply absolute bg-green top-0 left-0 w-full h-full bg-opacity-0 hover:bg-opacity-25;
+  @apply absolute bg-green top-0 left-0 w-full h-full bg-opacity-0 hover:bg-opacity-50;
   @apply transition-all ease-in-out duration-300;
   @apply flex items-center justify-center;
 }
