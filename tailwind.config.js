@@ -9,7 +9,7 @@ module.exports = {
     },
     colors: {
       transparent: 'transparent',
-      grey: '#F1EFEF',
+      grey: '#F2E5E3',
       white: '#ffffff',
       green: {
         default: '#00A86B',
@@ -17,24 +17,12 @@ module.exports = {
       }
     }
   },
-  variants: {
-    cursor: ['responsive', 'disabled'],
-    backgroundColor: ['dark', 'hover', 'disabled'],
-    borderColor: ['dark', 'active', 'focus', 'disabled'],
-    textColor: ['dark', 'hover', 'active', 'disabled'],
-    opacity: ['dark', 'hover', 'active', 'focus', 'disabled']
-  },
+  variants: {},
   future: {
     purgeLayersByDefault: true,
     removeDeprecatedGapUtilities: true
   },
   experimental: {
-    darkModeVariant: true,
-    applyComplexClasses: true,
-    uniformColorPalette: true,
-    extendedSpacingScale: true,
-    defaultLineHeights: true,
-    extendedFontSizeScale: true
-  },
-  dark: 'class'
+    applyComplexClasses: true
+  }
 }
