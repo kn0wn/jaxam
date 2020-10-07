@@ -1,18 +1,46 @@
 <template>
-  <section class="masonry">
-    <ItemBlock v-for="item in getFilteredItems" :item="item" :key="item.id" />
-  </section>
+  <Flipper :flip-key="focused">
+    <section class="masonry">
+      <Flipped v-for="item in getFilteredItems" :key="item.id" :flip-id="item.id" translate scale>
+        <ItemBlock v-show="item.id !== focused" @click.native="setFocused(item.id)" :item="item" />
+      </Flipped>
+    </section>
+    <Flipped :flip-id="focused" v-if="focused !== null">
+      <ItemDetails @click.native="setFocused(focused)" :item="focused" />
+    </Flipped>
+    <div
+      v-if="focused !== null"
+      @click="setFocused(focused)"
+      class="z-10 cursor-pointer h-screen w-screen top-0 left-0 fixed bg-green bg-opacity-25"
+    />
+  </Flipper>
 </template>
 
 <script>
 import { createClient } from 'contentful'
 import { mapGetters, mapMutations } from 'vuex'
+import { Flipper, Flipped } from 'vue-flip-toolkit'
 
 export default {
+  components: {
+    Flipper,
+    Flipped
+  },
+  data: () => ({
+    focused: null
+  }),
   computed: {
     ...mapGetters({ getItems: 'getItems', getFilteredItems: 'getFilteredItems' })
   },
   methods: {
+    setFocused(index) {
+      console.log(index)
+      if (index === this.focused) {
+        this.focused = null
+      } else {
+        this.focused = index
+      }
+    },
     ...mapMutations({ addItem: 'ADD_ITEM' })
   },
   mounted() {
@@ -48,7 +76,7 @@ export default {
 }
 
 .masonry-item {
-  @apply relative;
+  @apply relative cursor-pointer;
 }
 
 .masonry-item img {

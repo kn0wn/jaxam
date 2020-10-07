@@ -21,7 +21,8 @@
   },
   "dependencies": {
     "contentful": "^7.14.6",
-    "nuxt": "^2.0.0"
+    "nuxt": "^2.0.0",
+    "vue-flip-toolkit": "^1.6.0"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^1.0.0",

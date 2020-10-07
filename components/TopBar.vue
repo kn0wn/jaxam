@@ -7,21 +7,21 @@
       <p
         :class="{ 'border-green': getCurrentFilter === 'All' }"
         @click="updateFilter('All')"
-        class="flex-1 py-2 border-b-2 border-transparent hidden sm:block"
+        class="flex-1 py-2 border-b-2 border-transparent hidden sm:block text-center"
       >
         All
       </p>
       <p
         @click="updateFilter('Illustration')"
         :class="{ 'border-green': getCurrentFilter === 'Illustration' }"
-        class="flex-1 py-2 border-b-2 border-transparent hidden sm:block"
+        class="flex-1 py-2 border-b-2 border-transparent hidden sm:block text-center"
       >
         Illustrations
       </p>
       <p
         @click="updateFilter('Print')"
         :class="{ 'border-green': getCurrentFilter === 'Print' }"
-        class="flex-1 py-2 border-b-2 border-transparent hidden sm:block"
+        class="flex-1 py-2 border-b-2 border-transparent hidden sm:block text-center"
       >
         Prints
       </p>
