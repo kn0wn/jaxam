@@ -1,26 +1,24 @@
 <template>
-  <div class="fixed left-0 top-0 z-20">
-    <img :src="getItem.image" style="max-height: 100vh; max-width: 50vw" alt="" />
+  <div class="">
+    <img :src="item.image" class="shadow item-details" alt="" />
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
 export default {
   props: {
     item: {
-      type: String,
+      type: Object,
       required: true
     }
-  },
-  computed: {
-    getItem() {
-      return this.getItems.find(({ id }) => id === this.item)
-    },
-    ...mapGetters({ getItems: 'getItems' })
   }
 }
 </script>
 
-<style></style>
+<style lang="postcss">
+.item-details {
+  @apply ml-6;
+  max-height: 80vh;
+  max-width: 40vw;
+}
+</style>

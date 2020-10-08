@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto">
+  <div class="container py-8 mx-auto">
     <Collection />
   </div>
 </template>

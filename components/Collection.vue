@@ -1,18 +1,25 @@
 <template>
-  <Flipper :flip-key="focused">
+  <Flipper :flip-key="getSelectedItemId">
     <section class="masonry">
       <Flipped v-for="item in getFilteredItems" :key="item.id" :flip-id="item.id" translate scale>
-        <ItemBlock v-show="item.id !== focused" @click.native="setFocused(item.id)" :item="item" />
+        <ItemBlock v-show="item.id !== getSelectedItemId" @click.native="userSelected(item.id)" :item="item" />
       </Flipped>
     </section>
-    <Flipped :flip-id="focused" v-if="focused !== null">
-      <ItemDetails @click.native="setFocused(focused)" :item="focused" />
-    </Flipped>
     <div
-      v-if="focused !== null"
-      @click="setFocused(focused)"
-      class="z-10 cursor-pointer h-screen w-screen top-0 left-0 fixed bg-green bg-opacity-25"
-    />
+      v-if="getSelectedItemId !== null"
+      @click="userSelected(getSelectedItemId)"
+      class="fixed top-0 left-0 flex items-center w-screen h-screen bg-opacity-25 bg-green"
+    >
+      <Flipped :flip-id="getSelectedItemId" @on-complete="displayDetails = true">
+        <ItemDetails @click.native="userSelected(getSelectedItemId)" :item="getSelectedItem" />
+      </Flipped>
+      <transition name="fade">
+        <div v-if="displayDetails" :key="displayDetails" class="p-4 ml-6 bg-white shadow" style="width: 50vw;">
+          <h2 class="text-4xl">{{ getSelectedItem.title }}</h2>
+          <p>{{ getSelectedItem.type }}</p>
+        </div>
+      </transition>
+    </div>
   </Flipper>
 </template>
 
@@ -27,21 +34,22 @@ export default {
     Flipped
   },
   data: () => ({
-    focused: null
+    displayDetails: false
   }),
   computed: {
-    ...mapGetters({ getItems: 'getItems', getFilteredItems: 'getFilteredItems' })
+    ...mapGetters({
+      getItems: 'getItems',
+      getFilteredItems: 'getFilteredItems',
+      getSelectedItemId: 'getSelectedItemId',
+      getSelectedItem: 'getSelectedItem'
+    })
   },
   methods: {
-    setFocused(index) {
-      console.log(index)
-      if (index === this.focused) {
-        this.focused = null
-      } else {
-        this.focused = index
-      }
+    userSelected(item) {
+      this.selectItem(item)
+      if (!this.getSelectedItemId) this.displayDetails = false
     },
-    ...mapMutations({ addItem: 'ADD_ITEM' })
+    ...mapMutations({ addItem: 'ADD_ITEM', selectItem: 'SELECT_ITEM' })
   },
   mounted() {
     const client = createClient({
@@ -70,6 +78,15 @@ export default {
 </script>
 
 <style lang="postcss">
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 300ms ease-in-out;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  transform: translateY(10px);
+  opacity: 0;
+}
+
 .masonry {
   columns: 400px;
   column-gap: 1rem;
