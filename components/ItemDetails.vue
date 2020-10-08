@@ -1,7 +1,5 @@
 <template>
-  <div class="">
-    <img :src="item.image" class="shadow item-details" alt="" />
-  </div>
+  <img :src="item.image" class="shadow sm:mr-6 item-details" alt="" />
 </template>
 
 <script>
@@ -17,8 +15,10 @@ export default {
 
 <style lang="postcss">
 .item-details {
-  @apply ml-6;
-  max-height: 80vh;
-  max-width: 40vw;
+  max-width: 90vw;
+
+  @screen sm {
+    max-width: 35vw;
+  }
 }
 </style>

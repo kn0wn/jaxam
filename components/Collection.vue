@@ -5,26 +5,30 @@
         <ItemBlock v-show="item.id !== getSelectedItemId" @click.native="userSelected(item.id)" :item="item" />
       </Flipped>
     </section>
+
     <div
       v-if="getSelectedItemId !== null"
       @click="userSelected(getSelectedItemId)"
-      class="fixed top-0 left-0 flex items-center w-screen h-screen bg-opacity-25 bg-green"
+      class="fixed top-0 left-0 flex items-center w-screen h-screen bg-opacity-25 cursor-pointer bg-green"
     >
-      <Flipped :flip-id="getSelectedItemId" @on-complete="displayDetails = true">
-        <ItemDetails @click.native="userSelected(getSelectedItemId)" :item="getSelectedItem" />
-      </Flipped>
-      <transition name="fade">
-        <div v-if="displayDetails" :key="displayDetails" class="p-4 ml-6 bg-white shadow" style="width: 50vw;">
-          <h2 class="text-4xl">{{ getSelectedItem.title }}</h2>
-          <p>{{ getSelectedItem.type }}</p>
-        </div>
-      </transition>
+      <div class="flex flex-wrap-reverse items-center justify-center p-2 md:p-24 md:flex-no-wrap">
+        <Flipped :flip-id="getSelectedItemId" @on-complete="displayDetails = true">
+          <ItemDetails @click.native="userSelected(getSelectedItemId)" :item="getSelectedItem" />
+        </Flipped>
+        <transition name="fade">
+          <div v-if="displayDetails" :key="displayDetails" class="p-4 bg-white shadow sm:p-8">
+            <h2 class="text-2xl sm:text-4xl">{{ getSelectedItem.title }}</h2>
+            <p v-html="getDescription" class="hidden sm:block" />
+          </div>
+        </transition>
+      </div>
     </div>
   </Flipper>
 </template>
 
 <script>
 import { createClient } from 'contentful'
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 import { mapGetters, mapMutations } from 'vuex'
 import { Flipper, Flipped } from 'vue-flip-toolkit'
 
@@ -37,6 +41,11 @@ export default {
     displayDetails: false
   }),
   computed: {
+    getDescription() {
+      if (!this.getSelectedItem) return
+
+      return documentToHtmlString(this.getSelectedItem.description)
+    },
     ...mapGetters({
       getItems: 'getItems',
       getFilteredItems: 'getFilteredItems',

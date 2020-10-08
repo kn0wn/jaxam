@@ -20,6 +20,7 @@
     }
   },
   "dependencies": {
+    "@contentful/rich-text-html-renderer": "^14.1.1",
     "contentful": "^7.14.6",
     "nuxt": "^2.0.0",
     "vue-flip-toolkit": "^1.6.0"

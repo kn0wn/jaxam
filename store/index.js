@@ -7,7 +7,9 @@ export const state = () => ({
 export const mutations = {
   ADD_ITEM: (state, item) => {
     const foundItem = state.items.findIndex(({ id }) => id === item.id)
-    foundItem === -1 ? state.items.push(item) : state.items.splice(foundItem, 1)
+    if (foundItem === -1) {
+      state.items.push(item)
+    }
   },
   UPDATE_FILTER: (state, filter) => (state.filter = filter),
   SELECT_ITEM: (state, item) => (state.selected = state.selected === item ? null : item)

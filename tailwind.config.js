@@ -6,7 +6,8 @@ module.exports = {
   },
   theme: {
     fontFamily: {
-      display: 'Ballpoint Signature'
+      display: 'Ballpoint Signature',
+      sans: 'Piazzolla'
     },
     colors: {
       transparent: 'transparent',
