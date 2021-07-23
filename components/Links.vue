@@ -1,15 +1,17 @@
 <template>
   <div class="py-6">
-    <h4 class="font-body text-3xl">More of me</h4>
+    <h4 class="font-display text-3xl">More of me</h4>
     <ul>
-      <li
+      <a
         v-for="link in links"
         :key="link.text"
+        :href="link.location"
+        target="_blank"
         class="
           py-4
           text-2xl
           border-b
-          font-body
+          font-display
           flex
           items-center
           justify-between
@@ -34,7 +36,7 @@
             fill="currentColor"
           ></path>
         </svg>
-      </li>
+      </a>
     </ul>
   </div>
 </template>
@@ -45,12 +47,16 @@ export default {
     links: [
       {
         text: 'Instagram',
+        location: '//instagram.com/jxm._.design',
       },
       {
         text: 'Etsy',
+        location: 'http://madebyjadex.etsy.com/',
       },
       {
         text: 'Spoonflower',
+        location:
+          'https://www.spoonflower.com/profiles/jxm___design?sub_action=designs',
       },
     ],
   }),

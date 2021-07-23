@@ -34,12 +34,19 @@
               :key="`${i + 1}-${name}`"
               :index="i"
             >
-              <img :src="item.url" :alt="`Variant ${i + 1} of ${name}`" />
+              <img
+                class="object-cover object-center"
+                :src="item.url"
+                :alt="`Variant ${i + 1} of ${name}`"
+              />
             </slide>
           </carousel-3d>
           <h4 class="font-display text-xl">{{ type }}</h4>
           <h4 class="font-display text-3xl mb-2">{{ name }}</h4>
-          <button class="rounded py-2 px-4 bg-green" @click="close()">
+          <button
+            class="rounded py-2 px-4 text-white bg-green"
+            @click="close()"
+          >
             Back
           </button>
         </div>

@@ -1,10 +1,13 @@
 <template>
-  <div v-if="!$fetchState.pending" class="grid grid-cols-2 gap-12">
+  <div
+    v-if="!$fetchState.pending"
+    class="grid md:grid-cols-2 gap-12 grid-cols-1"
+  >
     <PortfolioItem
       v-for="item in items"
       :key="item.name"
       v-bind="item"
-      class="odd:mt-16"
+      class="md:odd:mt-16"
     />
   </div>
 </template>

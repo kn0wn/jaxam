@@ -10,7 +10,8 @@ module.exports = {
     },
     colors: {
       pink: '#FFDDF4',
-      green: '#5C7457',
+      green: '#576953',
+      white: '#ffffff',
     },
     fontFamily: {
       body: ['Cinzel Decorative', 'cursive'],
