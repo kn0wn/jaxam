@@ -1,8 +1,11 @@
 <template>
-  <div class="min-h-screen bg-grey">
-    <TopBar />
-    <nuxt />
+  <div class="bg-pink">
+    <Nuxt />
   </div>
 </template>
+
+<script>
+export default {}
+</script>
 
 <style></style>

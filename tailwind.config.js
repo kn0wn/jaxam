@@ -1,30 +1,20 @@
 module.exports = {
-  purge: {
-    // Learn more on https://tailwindcss.com/docs/controlling-file-size/#removing-unused-css
-    enabled: process.env.NODE_ENV === 'production',
-    content: ['components/**/*.vue', 'layouts/**/*.vue', 'pages/**/*.vue', 'plugins/**/*.js', 'nuxt.config.js']
-  },
+  mode: 'jit',
+  // purge: {
+  //   content: ['./safelist.txt'],
+  // },
   theme: {
-    fontFamily: {
-      display: 'Ballpoint Signature',
-      sans: 'Piazzolla'
+    container: {
+      center: true,
+      padding: '1rem',
     },
     colors: {
-      transparent: 'transparent',
-      grey: '#F2E5E3',
-      white: '#ffffff',
-      green: {
-        default: '#00A86B',
-        dark: '#0D3C44'
-      }
-    }
+      pink: '#FFDDF4',
+      green: '#5C7457',
+    },
+    fontFamily: {
+      body: ['Cinzel Decorative', 'cursive'],
+      display: ['Playfair Display', 'serif'],
+    },
   },
-  variants: {},
-  future: {
-    purgeLayersByDefault: true,
-    removeDeprecatedGapUtilities: true
-  },
-  experimental: {
-    applyComplexClasses: true
-  }
 }
